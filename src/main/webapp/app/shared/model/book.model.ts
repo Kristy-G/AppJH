@@ -6,8 +6,6 @@ export interface IBook {
   name?: string | null;
   author?: IAuthor | null;
   genre?: IGenre | null;
-  author?: IAuthor | null;
-  genre?: IGenre | null;
 }
 
 export const defaultValue: Readonly<IBook> = {};
