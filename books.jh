@@ -13,12 +13,13 @@ entity Genre {
 }
 
 relationship ManyToOne {
-	Book{author} to Author
+	Book{author} to Author{book}
 }
 
 relationship ManyToOne {
-	Book{genre} to Genre
+	Book{genre} to Genre{book}
 }
+
 
 paginate Book, Author, Genre with infinite-scroll
 
