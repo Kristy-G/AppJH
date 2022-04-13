@@ -8,8 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IBook } from 'app/shared/model/book.model';
-import { getEntities as getBooks } from 'app/entities/book/book.reducer';
 import { IAuthor } from 'app/shared/model/author.model';
 import { getEntity, updateEntity, createEntity, reset } from './author.reducer';
 
@@ -18,7 +16,6 @@ export const AuthorUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const books = useAppSelector(state => state.book.entities);
   const authorEntity = useAppSelector(state => state.author.entity);
   const loading = useAppSelector(state => state.author.loading);
   const updating = useAppSelector(state => state.author.updating);
@@ -31,8 +28,6 @@ export const AuthorUpdate = (props: RouteComponentProps<{ id: string }>) => {
     if (!isNew) {
       dispatch(getEntity(props.match.params.id));
     }
-
-    dispatch(getBooks({}));
   }, []);
 
   useEffect(() => {
@@ -45,7 +40,6 @@ export const AuthorUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...authorEntity,
       ...values,
-      book: books.find(it => it.id.toString() === values.book.toString()),
     };
 
     if (isNew) {
@@ -60,7 +54,6 @@ export const AuthorUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...authorEntity,
-          book: authorEntity?.book?.id,
         };
 
   return (
@@ -102,16 +95,6 @@ export const AuthorUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 data-cy="lastName"
                 type="text"
               />
-              <ValidatedField id="author-book" name="book" data-cy="book" label={translate('appJhApp.author.book')} type="select">
-                <option value="" key="0" />
-                {books
-                  ? books.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/author" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

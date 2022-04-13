@@ -127,9 +127,6 @@ export const Genre = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('name')}>
                     <Translate contentKey="appJhApp.genre.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
-                    <Translate contentKey="appJhApp.genre.book">Book</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th />
                 </tr>
               </thead>
@@ -142,7 +139,6 @@ export const Genre = (props: RouteComponentProps<{ url: string }>) => {
                       </Button>
                     </td>
                     <td>{genre.name}</td>
-                    <td>{genre.book ? <Link to={`/book/${genre.book.id}`}>{genre.book.id}</Link> : ''}</td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`/genre/${genre.id}`} color="info" size="sm" data-cy="entityDetailsButton">
