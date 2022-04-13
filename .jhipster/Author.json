@@ -19,13 +19,6 @@
   "name": "Author",
   "pagination": "infinite-scroll",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "book",
-      "otherEntityRelationshipName": "author",
-      "relationshipName": "lastName",
-      "relationshipType": "one-to-many"
-    }
-  ],
+  "relationships": [],
   "service": "no"
 }

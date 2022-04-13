@@ -1,9 +1,6 @@
 package com.company.appjh.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,11 +23,6 @@ public class Genre implements Serializable {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "genre")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "author", "genre" }, allowSetters = true)
-    private Set<Book> names = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -58,37 +50,6 @@ public class Genre implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Book> getNames() {
-        return this.names;
-    }
-
-    public void setNames(Set<Book> books) {
-        if (this.names != null) {
-            this.names.forEach(i -> i.setGenre(null));
-        }
-        if (books != null) {
-            books.forEach(i -> i.setGenre(this));
-        }
-        this.names = books;
-    }
-
-    public Genre names(Set<Book> books) {
-        this.setNames(books);
-        return this;
-    }
-
-    public Genre addName(Book book) {
-        this.names.add(book);
-        book.setGenre(this);
-        return this;
-    }
-
-    public Genre removeName(Book book) {
-        this.names.remove(book);
-        book.setGenre(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
