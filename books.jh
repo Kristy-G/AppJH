@@ -20,11 +20,6 @@ relationship ManyToOne {
 	Book{genre} to Genre
 }
 
-relationship OneToMany {
-	Author to Book,
-    Genre to Book
-}
-
 paginate Book, Author, Genre with infinite-scroll
 
 // Use Data Transfer Objects (DTO)
