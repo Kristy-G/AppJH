@@ -128,12 +128,6 @@ public class BookResource {
                 if (book.getName() != null) {
                     existingBook.setName(book.getName());
                 }
-                if (book.getAuthor() != null) {
-                    existingBook.setAuthor(book.getAuthor());
-                }
-                if (book.getGenre() != null) {
-                    existingBook.setGenre(book.getGenre());
-                }
 
                 return existingBook;
             })

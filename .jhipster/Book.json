@@ -8,14 +8,6 @@
     {
       "fieldName": "name",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "author",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "genre",
-      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

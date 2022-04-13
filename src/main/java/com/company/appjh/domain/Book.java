@@ -25,12 +25,6 @@ public class Book implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "author")
-    private String author;
-
-    @Column(name = "genre")
-    private String genre;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "lastNames" }, allowSetters = true)
     private Author author;
@@ -65,32 +59,6 @@ public class Book implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAuthor() {
-        return this.author;
-    }
-
-    public Book author(String author) {
-        this.setAuthor(author);
-        return this;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getGenre() {
-        return this.genre;
-    }
-
-    public Book genre(String genre) {
-        this.setGenre(genre);
-        return this;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public Author getAuthor() {
@@ -144,8 +112,6 @@ public class Book implements Serializable {
         return "Book{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", genre='" + getGenre() + "'" +
             "}";
     }
 }

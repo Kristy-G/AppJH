@@ -95,8 +95,6 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField label={translate('appJhApp.book.name')} id="book-name" name="name" data-cy="name" type="text" />
-              <ValidatedField label={translate('appJhApp.book.author')} id="book-author" name="author" data-cy="author" type="text" />
-              <ValidatedField label={translate('appJhApp.book.genre')} id="book-genre" name="genre" data-cy="genre" type="text" />
               <ValidatedField id="book-author" name="author" data-cy="author" label={translate('appJhApp.book.author')} type="select">
                 <option value="" key="0" />
                 {authors

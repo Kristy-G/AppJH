@@ -1,8 +1,6 @@
 
 entity Book {
-	name String,
-    author String,
-    genre String
+	name String
 }
 
 entity Author {

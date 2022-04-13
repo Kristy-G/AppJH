@@ -37,18 +37,6 @@ export const BookDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{bookEntity.name}</dd>
           <dt>
-            <span id="author">
-              <Translate contentKey="appJhApp.book.author">Author</Translate>
-            </span>
-          </dt>
-          <dd>{bookEntity.author}</dd>
-          <dt>
-            <span id="genre">
-              <Translate contentKey="appJhApp.book.genre">Genre</Translate>
-            </span>
-          </dt>
-          <dd>{bookEntity.genre}</dd>
-          <dt>
             <Translate contentKey="appJhApp.book.author">Author</Translate>
           </dt>
           <dd>{bookEntity.author ? bookEntity.author.id : ''}</dd>

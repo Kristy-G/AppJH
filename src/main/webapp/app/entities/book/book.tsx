@@ -127,12 +127,6 @@ export const Book = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('name')}>
                     <Translate contentKey="appJhApp.book.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('author')}>
-                    <Translate contentKey="appJhApp.book.author">Author</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('genre')}>
-                    <Translate contentKey="appJhApp.book.genre">Genre</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th>
                     <Translate contentKey="appJhApp.book.author">Author</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -151,8 +145,6 @@ export const Book = (props: RouteComponentProps<{ url: string }>) => {
                       </Button>
                     </td>
                     <td>{book.name}</td>
-                    <td>{book.author}</td>
-                    <td>{book.genre}</td>
                     <td>{book.author ? <Link to={`/author/${book.author.id}`}>{book.author.id}</Link> : ''}</td>
                     <td>{book.genre ? <Link to={`/genre/${book.genre.id}`}>{book.genre.id}</Link> : ''}</td>
                     <td className="text-end">

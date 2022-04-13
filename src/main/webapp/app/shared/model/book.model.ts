@@ -4,8 +4,6 @@ import { IGenre } from 'app/shared/model/genre.model';
 export interface IBook {
   id?: number;
   name?: string | null;
-  author?: string | null;
-  genre?: string | null;
   author?: IAuthor | null;
   genre?: IGenre | null;
 }
