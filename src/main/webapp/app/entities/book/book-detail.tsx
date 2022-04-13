@@ -44,14 +44,6 @@ export const BookDetail = (props: RouteComponentProps<{ id: string }>) => {
             <Translate contentKey="appJhApp.book.genre">Genre</Translate>
           </dt>
           <dd>{bookEntity.genre ? bookEntity.genre.id : ''}</dd>
-          <dt>
-            <Translate contentKey="appJhApp.book.author">Author</Translate>
-          </dt>
-          <dd>{bookEntity.author ? bookEntity.author.id : ''}</dd>
-          <dt>
-            <Translate contentKey="appJhApp.book.genre">Genre</Translate>
-          </dt>
-          <dd>{bookEntity.genre ? bookEntity.genre.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/book" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
