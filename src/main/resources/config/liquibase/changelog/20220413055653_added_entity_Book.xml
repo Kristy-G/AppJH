@@ -23,6 +23,12 @@
             <column name="genre_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="author_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="genre_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

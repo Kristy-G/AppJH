@@ -50,6 +50,8 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...bookEntity,
       ...values,
       author: authors.find(it => it.id.toString() === values.author.toString()),
+      author: authors.find(it => it.id.toString() === values.author.toString()),
+      genre: genres.find(it => it.id.toString() === values.genre.toString()),
       genre: genres.find(it => it.id.toString() === values.genre.toString()),
     };
 
@@ -65,6 +67,8 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...bookEntity,
+          author: bookEntity?.author?.id,
+          genre: bookEntity?.genre?.id,
           author: bookEntity?.author?.id,
           genre: bookEntity?.genre?.id,
         };
@@ -95,6 +99,26 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 />
               ) : null}
               <ValidatedField label={translate('appJhApp.book.name')} id="book-name" name="name" data-cy="name" type="text" />
+              <ValidatedField id="book-author" name="author" data-cy="author" label={translate('appJhApp.book.author')} type="select">
+                <option value="" key="0" />
+                {authors
+                  ? authors.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField id="book-genre" name="genre" data-cy="genre" label={translate('appJhApp.book.genre')} type="select">
+                <option value="" key="0" />
+                {genres
+                  ? genres.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <ValidatedField id="book-author" name="author" data-cy="author" label={translate('appJhApp.book.author')} type="select">
                 <option value="" key="0" />
                 {authors
