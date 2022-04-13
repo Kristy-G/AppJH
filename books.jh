@@ -15,12 +15,12 @@ entity Genre {
 	name String
 }
 
-relationship OneToMany {
-	Book{author} to Author
+relationship ManyToOne {
+	Authoe to Book{author}
 }
 
-relationship OneToMany {
-	Book{genre} to Genre
+relationship ManyToOne {
+	Genre to Book{genre}
 }
 
 paginate Book, Author, Genre with infinite-scroll
