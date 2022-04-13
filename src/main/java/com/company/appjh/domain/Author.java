@@ -1,6 +1,9 @@
 package com.company.appjh.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,6 +29,11 @@ public class Author implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @OneToMany(mappedBy = "author")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "author", "genre" }, allowSetters = true)
+    private Set<Book> lastNames = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -66,6 +74,37 @@ public class Author implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Book> getLastNames() {
+        return this.lastNames;
+    }
+
+    public void setLastNames(Set<Book> books) {
+        if (this.lastNames != null) {
+            this.lastNames.forEach(i -> i.setAuthor(null));
+        }
+        if (books != null) {
+            books.forEach(i -> i.setAuthor(this));
+        }
+        this.lastNames = books;
+    }
+
+    public Author lastNames(Set<Book> books) {
+        this.setLastNames(books);
+        return this;
+    }
+
+    public Author addLastName(Book book) {
+        this.lastNames.add(book);
+        book.setAuthor(this);
+        return this;
+    }
+
+    public Author removeLastName(Book book) {
+        this.lastNames.remove(book);
+        book.setAuthor(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -1,7 +1,6 @@
 
 entity Book {
 	name String,
-    description String,
     author String,
     genre String
 }
@@ -16,11 +15,11 @@ entity Genre {
 }
 
 relationship ManyToOne {
-	Book{author} to Author
+	Book{author} to Author{lastName}
 }
 
 relationship ManyToOne {
-	Book{genre} to Genre
+	Book{genre} to Genre{name}
 }
 
 paginate Book, Author, Genre with infinite-scroll
@@ -29,7 +28,7 @@ paginate Book, Author, Genre with infinite-scroll
 // dto * with mapstruct
 
 // Set service options to all except few
-service all with serviceImpl except Book
+service all with serviceImpl except Book, Author, Genre
 
 // Set an angular suffix
 // angularSuffix * with mySuffix

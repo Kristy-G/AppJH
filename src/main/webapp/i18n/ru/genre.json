@@ -18,6 +18,7 @@
         "title": "Genre"
       },
       "id": "ID",
+      "name": "Name",
       "name": "Name"
     }
   }

@@ -10,10 +10,6 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "description",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "author",
       "fieldType": "String"
     },
@@ -30,13 +26,13 @@
   "relationships": [
     {
       "otherEntityName": "author",
-      "otherEntityRelationshipName": "book",
+      "otherEntityRelationshipName": "lastName",
       "relationshipName": "author",
       "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "genre",
-      "otherEntityRelationshipName": "book",
+      "otherEntityRelationshipName": "name",
       "relationshipName": "genre",
       "relationshipType": "many-to-one"
     }
