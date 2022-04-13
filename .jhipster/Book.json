@@ -32,13 +32,13 @@
       "otherEntityName": "author",
       "otherEntityRelationshipName": "book",
       "relationshipName": "author",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     },
     {
       "otherEntityName": "genre",
       "otherEntityRelationshipName": "book",
       "relationshipName": "genre",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

@@ -130,9 +130,6 @@ export const Author = (props: RouteComponentProps<{ url: string }>) => {
                   <th className="hand" onClick={sort('lastName')}>
                     <Translate contentKey="appJhApp.author.lastName">Last Name</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
-                    <Translate contentKey="appJhApp.author.book">Book</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th />
                 </tr>
               </thead>
@@ -146,7 +143,6 @@ export const Author = (props: RouteComponentProps<{ url: string }>) => {
                     </td>
                     <td>{author.firstName}</td>
                     <td>{author.lastName}</td>
-                    <td>{author.book ? <Link to={`/book/${author.book.id}`}>{author.book.id}</Link> : ''}</td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">
                         <Button tag={Link} to={`/author/${author.id}`} color="info" size="sm" data-cy="entityDetailsButton">

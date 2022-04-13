@@ -1,9 +1,6 @@
 package com.company.appjh.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,15 +33,11 @@ public class Book implements Serializable {
     @Column(name = "genre")
     private String genre;
 
-    @OneToMany(mappedBy = "book")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "book" }, allowSetters = true)
-    private Set<Author> authors = new HashSet<>();
+    @ManyToOne
+    private Author author;
 
-    @OneToMany(mappedBy = "book")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "book" }, allowSetters = true)
-    private Set<Genre> genres = new HashSet<>();
+    @ManyToOne
+    private Genre genre;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -113,65 +106,29 @@ public class Book implements Serializable {
         this.genre = genre;
     }
 
-    public Set<Author> getAuthors() {
-        return this.authors;
+    public Author getAuthor() {
+        return this.author;
     }
 
-    public void setAuthors(Set<Author> authors) {
-        if (this.authors != null) {
-            this.authors.forEach(i -> i.setBook(null));
-        }
-        if (authors != null) {
-            authors.forEach(i -> i.setBook(this));
-        }
-        this.authors = authors;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
-    public Book authors(Set<Author> authors) {
-        this.setAuthors(authors);
+    public Book author(Author author) {
+        this.setAuthor(author);
         return this;
     }
 
-    public Book addAuthor(Author author) {
-        this.authors.add(author);
-        author.setBook(this);
-        return this;
+    public Genre getGenre() {
+        return this.genre;
     }
 
-    public Book removeAuthor(Author author) {
-        this.authors.remove(author);
-        author.setBook(null);
-        return this;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
-    public Set<Genre> getGenres() {
-        return this.genres;
-    }
-
-    public void setGenres(Set<Genre> genres) {
-        if (this.genres != null) {
-            this.genres.forEach(i -> i.setBook(null));
-        }
-        if (genres != null) {
-            genres.forEach(i -> i.setBook(this));
-        }
-        this.genres = genres;
-    }
-
-    public Book genres(Set<Genre> genres) {
-        this.setGenres(genres);
-        return this;
-    }
-
-    public Book addGenre(Genre genre) {
-        this.genres.add(genre);
-        genre.setBook(this);
-        return this;
-    }
-
-    public Book removeGenre(Genre genre) {
-        this.genres.remove(genre);
-        genre.setBook(null);
+    public Book genre(Genre genre) {
+        this.setGenre(genre);
         return this;
     }
 

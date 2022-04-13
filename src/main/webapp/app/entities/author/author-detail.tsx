@@ -42,10 +42,6 @@ export const AuthorDetail = (props: RouteComponentProps<{ id: string }>) => {
             </span>
           </dt>
           <dd>{authorEntity.lastName}</dd>
-          <dt>
-            <Translate contentKey="appJhApp.author.book">Book</Translate>
-          </dt>
-          <dd>{authorEntity.book ? authorEntity.book.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/author" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

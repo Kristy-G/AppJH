@@ -1,6 +1,5 @@
 package com.company.appjh.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -24,10 +23,6 @@ public class Genre implements Serializable {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "authors", "genres" }, allowSetters = true)
-    private Book book;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -55,19 +50,6 @@ public class Genre implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Book getBook() {
-        return this.book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public Genre book(Book book) {
-        this.setBook(book);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

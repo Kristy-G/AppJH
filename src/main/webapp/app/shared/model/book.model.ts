@@ -7,8 +7,8 @@ export interface IBook {
   description?: string | null;
   author?: string | null;
   genre?: string | null;
-  authors?: IAuthor[] | null;
-  genres?: IGenre[] | null;
+  author?: IAuthor | null;
+  genre?: IGenre | null;
 }
 
 export const defaultValue: Readonly<IBook> = {};
