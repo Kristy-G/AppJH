@@ -15,6 +15,13 @@
   "name": "Genre",
   "pagination": "infinite-scroll",
   "readOnly": false,
-  "relationships": [],
-  "service": "serviceImpl"
+  "relationships": [
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "genre",
+      "relationshipName": "name",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
 }

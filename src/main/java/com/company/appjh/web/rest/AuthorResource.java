@@ -2,7 +2,6 @@ package com.company.appjh.web.rest;
 
 import com.company.appjh.domain.Author;
 import com.company.appjh.repository.AuthorRepository;
-import com.company.appjh.service.AuthorService;
 import com.company.appjh.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -28,6 +28,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class AuthorResource {
 
     private final Logger log = LoggerFactory.getLogger(AuthorResource.class);
@@ -37,12 +38,9 @@ public class AuthorResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final AuthorService authorService;
-
     private final AuthorRepository authorRepository;
 
-    public AuthorResource(AuthorService authorService, AuthorRepository authorRepository) {
-        this.authorService = authorService;
+    public AuthorResource(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
@@ -59,7 +57,7 @@ public class AuthorResource {
         if (author.getId() != null) {
             throw new BadRequestAlertException("A new author cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Author result = authorService.save(author);
+        Author result = authorRepository.save(author);
         return ResponseEntity
             .created(new URI("/api/authors/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -91,7 +89,7 @@ public class AuthorResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Author result = authorService.update(author);
+        Author result = authorRepository.save(author);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, author.getId().toString()))
@@ -126,7 +124,19 @@ public class AuthorResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Author> result = authorService.partialUpdate(author);
+        Optional<Author> result = authorRepository
+            .findById(author.getId())
+            .map(existingAuthor -> {
+                if (author.getFirstName() != null) {
+                    existingAuthor.setFirstName(author.getFirstName());
+                }
+                if (author.getLastName() != null) {
+                    existingAuthor.setLastName(author.getLastName());
+                }
+
+                return existingAuthor;
+            })
+            .map(authorRepository::save);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -143,7 +153,7 @@ public class AuthorResource {
     @GetMapping("/authors")
     public ResponseEntity<List<Author>> getAllAuthors(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Authors");
-        Page<Author> page = authorService.findAll(pageable);
+        Page<Author> page = authorRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -157,7 +167,7 @@ public class AuthorResource {
     @GetMapping("/authors/{id}")
     public ResponseEntity<Author> getAuthor(@PathVariable Long id) {
         log.debug("REST request to get Author : {}", id);
-        Optional<Author> author = authorService.findOne(id);
+        Optional<Author> author = authorRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(author);
     }
 
@@ -170,7 +180,7 @@ public class AuthorResource {
     @DeleteMapping("/authors/{id}")
     public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
         log.debug("REST request to delete Author : {}", id);
-        authorService.delete(id);
+        authorRepository.deleteById(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

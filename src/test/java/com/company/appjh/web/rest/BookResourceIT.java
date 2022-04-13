@@ -32,9 +32,6 @@ class BookResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
-
     private static final String DEFAULT_AUTHOR = "AAAAAAAAAA";
     private static final String UPDATED_AUTHOR = "BBBBBBBBBB";
 
@@ -65,7 +62,7 @@ class BookResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Book createEntity(EntityManager em) {
-        Book book = new Book().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION).author(DEFAULT_AUTHOR).genre(DEFAULT_GENRE);
+        Book book = new Book().name(DEFAULT_NAME).author(DEFAULT_AUTHOR).genre(DEFAULT_GENRE);
         return book;
     }
 
@@ -76,7 +73,7 @@ class BookResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Book createUpdatedEntity(EntityManager em) {
-        Book book = new Book().name(UPDATED_NAME).description(UPDATED_DESCRIPTION).author(UPDATED_AUTHOR).genre(UPDATED_GENRE);
+        Book book = new Book().name(UPDATED_NAME).author(UPDATED_AUTHOR).genre(UPDATED_GENRE);
         return book;
     }
 
@@ -99,7 +96,6 @@ class BookResourceIT {
         assertThat(bookList).hasSize(databaseSizeBeforeCreate + 1);
         Book testBook = bookList.get(bookList.size() - 1);
         assertThat(testBook.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testBook.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testBook.getAuthor()).isEqualTo(DEFAULT_AUTHOR);
         assertThat(testBook.getGenre()).isEqualTo(DEFAULT_GENRE);
     }
@@ -135,7 +131,6 @@ class BookResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(book.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].author").value(hasItem(DEFAULT_AUTHOR)))
             .andExpect(jsonPath("$.[*].genre").value(hasItem(DEFAULT_GENRE)));
     }
@@ -153,7 +148,6 @@ class BookResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(book.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.author").value(DEFAULT_AUTHOR))
             .andExpect(jsonPath("$.genre").value(DEFAULT_GENRE));
     }
@@ -177,7 +171,7 @@ class BookResourceIT {
         Book updatedBook = bookRepository.findById(book.getId()).get();
         // Disconnect from session so that the updates on updatedBook are not directly saved in db
         em.detach(updatedBook);
-        updatedBook.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).author(UPDATED_AUTHOR).genre(UPDATED_GENRE);
+        updatedBook.name(UPDATED_NAME).author(UPDATED_AUTHOR).genre(UPDATED_GENRE);
 
         restBookMockMvc
             .perform(
@@ -192,7 +186,6 @@ class BookResourceIT {
         assertThat(bookList).hasSize(databaseSizeBeforeUpdate);
         Book testBook = bookList.get(bookList.size() - 1);
         assertThat(testBook.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testBook.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testBook.getAuthor()).isEqualTo(UPDATED_AUTHOR);
         assertThat(testBook.getGenre()).isEqualTo(UPDATED_GENRE);
     }
@@ -278,7 +271,6 @@ class BookResourceIT {
         assertThat(bookList).hasSize(databaseSizeBeforeUpdate);
         Book testBook = bookList.get(bookList.size() - 1);
         assertThat(testBook.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testBook.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testBook.getAuthor()).isEqualTo(DEFAULT_AUTHOR);
         assertThat(testBook.getGenre()).isEqualTo(DEFAULT_GENRE);
     }
@@ -295,7 +287,7 @@ class BookResourceIT {
         Book partialUpdatedBook = new Book();
         partialUpdatedBook.setId(book.getId());
 
-        partialUpdatedBook.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).author(UPDATED_AUTHOR).genre(UPDATED_GENRE);
+        partialUpdatedBook.name(UPDATED_NAME).author(UPDATED_AUTHOR).genre(UPDATED_GENRE);
 
         restBookMockMvc
             .perform(
@@ -310,7 +302,6 @@ class BookResourceIT {
         assertThat(bookList).hasSize(databaseSizeBeforeUpdate);
         Book testBook = bookList.get(bookList.size() - 1);
         assertThat(testBook.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testBook.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testBook.getAuthor()).isEqualTo(UPDATED_AUTHOR);
         assertThat(testBook.getGenre()).isEqualTo(UPDATED_GENRE);
     }
